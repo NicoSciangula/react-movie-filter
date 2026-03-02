@@ -46,26 +46,17 @@ export default function FilmList({ openDrop, state }) {
             </li>
           ))}
         </ul>
-        <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            onClick={openDrop}
-          >
-            Generi
-          </button>
-          <ul className={`dropdown-menu ${state ? "show" : ""}`}>
-            {films.map((singleFilm, index) => (
-              <li key={index}>
-                <a className="dropdown-item" href="#">
-                  {singleFilm.genre}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <select
+          class="form-select form-select-lg mb-3"
+          aria-label="Large select example"
+        >
+          <option selected>Genere</option>
+          {films.map((singleFilm, index) => (
+            <option key={index} value={index}>
+              {singleFilm.genre}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
