@@ -1,5 +1,5 @@
 import FilmCard from "./products/FilmCard";
-
+import { useState } from "react";
 const films = [
   {
     title: "Inception",
@@ -35,17 +35,39 @@ const films = [
 ];
 
 export default function FilmList() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="my-3">
       <h1 className="text-center">Lista Film</h1>
       <div>
-        <ul className="list-unstyled">
+        <ul className="list-unstyled d-flex flex-wrap">
           {films.map((singleElement, index) => (
             <li key={index} className="p-3">
               <FilmCard film={singleElement} />
             </li>
           ))}
         </ul>
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            onClick={() => setOpen((current) => !current)}
+          >
+            Generi
+          </button>
+          <ul className={`dropdown-menu ${open ? "show" : ""}`}>
+            {films.map((singleFilm, index) => (
+              <li key={index}>
+                <a className="dropdown-item" href="#">
+                  {singleFilm.genre}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
