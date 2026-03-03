@@ -38,15 +38,38 @@ const films = [
 export default function Main() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [displayFilms, setDisplayFilms] = useState(films);
+  const [addFilm, setAddFilm] = useState({
+    filmTitle: "",
+    filmGenre: "",
+    filmImage: "",
+  });
 
   function genreClicked(genre) {
     setSelectedGenre(genre);
   }
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setAddFilm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+  function addNewFilm(e) {
+    e.preventDefault();
+    const newFilmObject = {
+      title: addFilm.filmTitle,
+      genre: addFilm.filmGenre,
+      image:
+        addFilm.filmImage ||
+        "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg",
+    };
+    setDisplayFilms([newFilmObject, ...displayFilms]);
+  }
 
   useEffect(() => {
     const filteredFilms = selectedGenre
-      ? films.filter((film) => film.genre === selectedGenre)
-      : films;
+      ? displayFilms.filter((film) => film.genre === selectedGenre)
+      : [...films];
     setDisplayFilms(filteredFilms);
   }, [selectedGenre]);
 
@@ -58,6 +81,11 @@ export default function Main() {
           filtered={displayFilms}
           genreFunction={genreClicked}
           selected={selectedGenre}
+        />
+        <Form
+          inputChange={handleInputChange}
+          val={addFilm}
+          pushFilm={addNewFilm}
         />
       </main>
     </>
