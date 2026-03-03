@@ -77,7 +77,6 @@ export default function Main() {
     <>
       <main className="container">
         <FilmList
-          listFilm={films}
           filtered={displayFilms}
           genreFunction={genreClicked}
           selected={selectedGenre}

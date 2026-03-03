@@ -1,7 +1,6 @@
 import FilmCard from "./products/FilmCard";
 
 export default function FilmList({
-  listFilm,
   genreFunction,
   selected,
   filtered,
