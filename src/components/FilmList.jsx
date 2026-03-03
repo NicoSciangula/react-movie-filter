@@ -6,6 +6,8 @@ export default function FilmList({
   selected,
   filtered,
 }) {
+  const onlyOneGenre = [...new Set(filtered.map((item) => item.genre))];
+
   return (
     <div className="my-3">
       <h1 className="text-center">Lista Film</h1>
@@ -24,9 +26,9 @@ export default function FilmList({
           value={selected}
         >
           <option value="">Genere</option>
-          {listFilm.map((singleFilm, index) => (
-            <option key={index} value={singleFilm.genre}>
-              {singleFilm.genre}
+          {onlyOneGenre.map((singleFilm, index) => (
+            <option key={index} value={singleFilm}>
+              {singleFilm}
             </option>
           ))}
         </select>
