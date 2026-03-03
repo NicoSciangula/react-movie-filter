@@ -36,16 +36,29 @@ const films = [
 ];
 
 export default function Main() {
-  const [clicked, setClicked] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [displayFilms, setDisplayFilms] = useState(films);
 
-  function genreClicked() {}
+  function genreClicked(genre) {
+    setSelectedGenre(genre);
+  }
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const filteredFilms = selectedGenre
+      ? films.filter((film) => film.genre === selectedGenre)
+      : films;
+    setDisplayFilms(filteredFilms);
+  }, [selectedGenre]);
 
   return (
     <>
       <main className="container">
-        <FilmList listFilm={films}/>
+        <FilmList
+          listFilm={films}
+          filtered={displayFilms}
+          genreFunction={genreClicked}
+          selected={selectedGenre}
+        />
       </main>
     </>
   );
